@@ -1,4 +1,6 @@
 import time
+from collections import deque
+from blist import blist
 
 def insert_stone(circle, current_stone, stone):
     # Handle special case
@@ -39,12 +41,12 @@ def init_scores(n_players):
 
 def main():
     n_players = 468
-    last_marble = 71843
+    last_marble = 71843*100
     print(f"Calculating for last marble of {last_marble}")
     start = time.time()
 
     scores = init_scores(n_players)
-    circle = [0, 1]
+    circle = blist([0, 1])
     current_stone = 1
     player_index = 1
     for i in range(2, last_marble+1):
