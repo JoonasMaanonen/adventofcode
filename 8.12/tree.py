@@ -7,7 +7,6 @@ def preprocess_data(filename):
     data = [int(char) for char in data[0]]
     return data
 
-
 def traverse_tree(data):
     n_children, n_meta = data[0], data[1]
     data = data[2:]
@@ -22,8 +21,8 @@ def traverse_tree(data):
     if n_children == 0:
         value = (sum(data[i] for i in range(n_meta)))
     else:
-        meta_data = data[0:n_meta]
-        value = sum(values[value-1] if len(values) >= value else 0 for value in meta_data)
+        meta_data = data[:n_meta]
+        value = sum(values[value-1] for value in meta_data if len(values) >= value)
     return totals, value, data[n_meta:]
 
 def main():
@@ -32,10 +31,5 @@ def main():
     print(f"PART 1: {total}")
     print(f"PART 2: {value}")
 
-
 if __name__== "__main__":
     main()
-
-
-
-
