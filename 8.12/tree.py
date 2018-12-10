@@ -9,21 +9,28 @@ def preprocess_data(filename):
 
 
 def traverse_tree(data):
-    n_children, num_meta = data[0], data[1]
+    n_children, n_meta = data[0], data[1]
     data = data[2:]
     totals = 0
+    values = []
     for i in range(n_children):
-        total, data = traverse_tree(data)
+        total, value, data = traverse_tree(data)
         totals += total
+        values.append(value)
 
-    totals += sum(data[i] for i in range(num_meta))
-    return totals, data[num_meta:]
-
+    totals += sum(data[i] for i in range(n_meta))
+    if n_children == 0:
+        value = (sum(data[i] for i in range(n_meta)))
+    else:
+        meta_data = data[0:n_meta]
+        value = sum(values[value-1] if len(values) >= value else 0 for value in meta_data)
+    return totals, value, data[n_meta:]
 
 def main():
     data = preprocess_data("input.txt")
-    total, remaining_data = traverse_tree(data)
+    total, value, remaining_data = traverse_tree(data)
     print(f"PART 1: {total}")
+    print(f"PART 2: {value}")
 
 
 if __name__== "__main__":
